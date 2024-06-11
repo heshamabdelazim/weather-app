@@ -1,0 +1,55 @@
+/* ============ content of the file ============
+
+
+
+
+*/
+
+
+/* ============ weather-section design ============ */
+.weather-section{
+}
+
+.weather-section .data{
+    background-color: var(--color6) ;
+    border-radius: 2rem;
+    border: 8px solid var(--color3);
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    height: 437px;
+    z-index: 1;
+}
+.weather-section .data .left{
+    position: relative;
+    padding: 1rem;
+}
+.weather-section .data .left::after{
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #eeec;
+}
+
+/* ============= video ============= */
+.weather-app video{
+    position: absolute;
+    z-index: -3;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+    
+/* ============= media ============= */
+
+@media (max-width:460px){
+    .weather-section .data{
+        display: block !important;
+    }
+}

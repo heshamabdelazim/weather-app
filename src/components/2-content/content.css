@@ -1,0 +1,107 @@
+/* ============ content of the file ============ 
+-section-design
+-text
+-ul
+-button
+-some testing
+-animation
+-media
+*/
+
+/* ============ section design ============ */
+.content{
+    background: var(--color4);
+    min-height: calc(100vh - 60vh);
+    color: white;
+    box-shadow: 0 -14px 33px 2px var(--color4);
+    position: relative;
+    z-index: 1;
+    /* opacity: 0; */
+    /* animation: opacity 2s forwards 3s; */
+}
+.content img{
+    position: absolute;
+    /* width: 100%; */
+    z-index: -1;
+    opacity: 0.16;
+    height: 200px;
+}
+
+/* ============ text ============ */
+.content p {
+    font-size: 1.5rem;
+}
+
+/* ============ ul ============ */
+.content ul {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap:2rem ;
+    justify-content: space-evenly;
+}
+.content ul li {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    /* justify-content: center; */
+    text-transform: capitalize;
+}
+.content ul li span:first-child {
+    font-size: 2.2rem;
+    font-weight: bold;
+    background:linear-gradient(to top,blue,var(--color1));
+    background-clip:text ;
+    color: transparent;
+}
+
+/* ============ button ============ */
+.content button{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 1.9rem auto 1rem;
+}
+.content button span{
+    animation: to-right 1s infinite alternate;
+}
+
+/* some testing */
+.content .leef{
+    width: 600px;
+    height: 500px;
+    margin: auto;
+    border-top-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    background-image: linear-gradient(320deg, #a6ee90 50%, #00800000 50%), linear-gradient(320deg, transparent 50%, #048000 50%);
+    position: relative;
+    overflow: hidden;
+}
+.content .leef::after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    background-color: red;
+    width: 254%;
+    height: 20px;
+    transform: rotate(320deg) translate(0%, -304px);
+    transform-origin: center;
+}
+
+/* ============= animation ============= */
+
+@keyframes to-right{
+    from{transform: translateX(-3px) }
+    to{transform: translateX(3px);}
+}
+
+/* ============= media ============= */
+
+@media (max-width:992px){
+    .content ul{
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width:767px){}

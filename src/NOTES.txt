@@ -1,0 +1,8 @@
+weather App
+-----------
+
+1-getting and know structure of weather-API
+2-knowing and drawing on paper the CSS-design
+3-setting on paper functionality of the app 
+4-User will write his city and then the output will be
+	 [weather-degree(number) , weather-status, city-time, ETC... ]

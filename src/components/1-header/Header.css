@@ -1,0 +1,168 @@
+/* ============ content of the file ============ */
+
+/* 1- header design */
+/* 2- header .head (children) */
+/* 3- img-clouds */
+/* 4- video */
+/* 5- animation */
+/* 6- media */
+
+
+
+
+/* ============= header design =============*/
+header{
+    overflow: hidden;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: bg-height 4s forwards  ;
+    /* background */
+    background:url(../../videos//weather.png) ;
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: 0 -130px;
+    /* position sticky */
+    position: sticky;
+    top: 0;
+}
+
+header::after{
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: black;
+    z-index: -2;
+    opacity: 0.89;
+    animation: opacity2 2s 1s forwards;
+}
+/* ================= header .head(children) ================= */
+header .head{
+    position: relative;
+    display: flex;
+    /* gap: 0.5rem; */
+    flex-direction: column;
+    z-index: 1;
+    align-items: center;
+}
+header .head::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #c9c9c975;
+    animation: opacity 1s 2.3s forwards;
+    opacity: 0;
+    z-index: -1;
+}
+
+header h1{
+    text-align: center;
+    scale: 0.7;
+    font-size: 4rem;
+    letter-spacing: 0.2rem;
+    position: relative;
+    opacity: 0;
+    animation: textCome 2s 2.5s forwards, opacity 1s 2s forwards, bg-change 1s 2.5s forwards;
+    letter-spacing: 0.8rem;
+    /* font */
+    font-family: "PT Serif", serif;
+    font-weight: 700;
+    font-style: normal;
+    /* font-color */
+    background: radial-gradient(#F4BD7C, #04012A 20%);
+    color: transparent;
+    background-clip: text;
+    transition: 0.6s;
+    background-position: center center;
+}
+header .head p{
+    font-size: 1.5rem;
+    /* color: var(--color4); */
+    letter-spacing: 0.1rem;
+}
+header .head p:last-of-type{
+    margin-bottom: 10px;
+}
+
+header .head input[type="checkbox"]{
+    width: 30px;
+    height: 30px;
+    border: none;
+    padding: 0 1rem;
+}
+header .head input:focus{
+    outline: none;
+}
+/* ============= header img-clouds ============= */
+
+header .head img{
+    width: 300px;
+    position: absolute;
+    top: 0;
+    filter: drop-shadow(0px 39px 32px gray);
+    z-index: 2;
+}
+header .head img.right{
+    right:50%;
+    transform: translate(50%, -25%);
+    animation:cloudRight 5s 0.5s ease-in forwards, cloudThunder 5s forwards;
+}
+header .head img.left{
+    left: 50%;
+    transform: translate(-50%, -25%);
+    animation: cloudLeft 5s 0.5s ease-in forwards, cloudThunder 5s forwards;
+}
+
+/* ============= animation ============= */
+/* clouds */
+@keyframes cloudRight{
+    to{right:-50%}
+}
+@keyframes cloudLeft{
+    to{left:-50%}
+}
+@keyframes cloudThunder {
+    19%, 25%, 74%, 80%, 85%{filter:drop-shadow(0px 39px 32px gray)}
+    20%, 75%{filter:drop-shadow(0px 39px 32px gray) drop-shadow(0px 40px 32px rgba(74, 152, 230, 0.685))}
+}
+/* text */
+
+@keyframes opacity2 {
+    to{opacity: 0.3;}
+}
+@keyframes bg-change {
+    from{background-size: 100% 100%;}
+    to{background-size: 300% 300%;}
+}
+
+@keyframes bg-height {
+    0%,10%,60%{height: 110vh;}
+    100%{height: 60vh;}
+} 
+/* ============= media ============= */
+@media (max-width:992px){
+    header {
+        background-position: 0;
+    }
+
+}
+
+@media (max-width:767px){
+
+    header::after {
+        /* display: none; */
+    }
+    header .head h1{
+        font-size: 2rem;
+    }
+    header .head p{
+        /* font-size: 0.1rem; */
+    }
+}

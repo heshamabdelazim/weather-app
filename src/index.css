@@ -1,0 +1,65 @@
+/* ============ content ============ */
+
+/* 1- Setting */
+/* 2- CSS variables */
+/* 3- Global animations */
+
+
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* ============ Setting ============ */
+body{
+    background-color: #ededed !important;
+    /* overflow: hidden; */
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+ul{
+    list-style: none;
+}
+.above{
+    background-color: var(--color6);
+}
+
+/* constant-selectors */
+.header{
+    width: fit-content;
+    font-size: 2rem;
+    margin:0 auto 1.2rem ;
+    border-bottom: 2px solid var(--color6);
+    letter-spacing: 0.4rem;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-align: center; /*import in mobile media */
+}
+.section{
+    padding: 1.5rem 0px;
+}
+/* ============ CSS variables ============ */
+
+.default{
+    --color1: #F4BD7C;
+    --color2: #A28657;
+    --color3: #DEBED3;
+    --color4: #0A2F59;
+    --color5: #04012A;
+    --color6: #E3E0DB;
+}
+.spring{
+    --color1: #6B9343;
+    --color2: #A8004A;
+    --color3: #DBBDFF;
+}
+
+/* =======Global animations ========== */
+@keyframes textCome{
+    to{scale: 1;}
+}
+
+@keyframes opacity {
+    to{opacity: 1;}
+}
