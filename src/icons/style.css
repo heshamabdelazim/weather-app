@@ -51,11 +51,11 @@
 }
 .icon-gmail:before {
   content: "\e908";
-  color: #d14836;
+  /* color: #d14836; */
 }
 .icon-whatsapp:before {
   content: "\e907";
-  color: #25d366;
+  /* color: #25d366; */
 }
 .icon-facebook2:before {
   content: "\ea91";

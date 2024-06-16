@@ -45,7 +45,14 @@
     height: 100%;
     object-fit: cover;
     }
-    
+    .swal2-checkbox{
+        width: fit-content;
+        margin: auto;
+        background: rgba(255, 255, 255, 0.619) !important;
+        padding-right:0.5rem;
+        border-radius: 10px;
+        font-size: clamp(16px, 1.5vw, 20px);
+    }
 /* ============= media ============= */
 
 @media (max-width:460px){

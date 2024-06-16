@@ -18,35 +18,25 @@ import thunderstorm from "../../videos/thunderstorm.mp4";
 import tornado from "../../videos/tornado.mp4";
 import dust from "../../videos/dust.mp4";
 import clouds from "../../videos/clouds.mp4";
+import mist from "../../videos/mist.mp4";
+import { APIWeather } from "../apiStructure";
 
 const GetWeather = () => {
   // ========== hoocks
-  let [weatherObject, setWeatherObject] = useState();
-  let startFetch = useRef(true);
-  let userInput = useRef();
+  // let [result, setresult] = useState();
+  let userCity = useRef();
   let inputDOM = useRef();
 
   // ========== Redux hocks
   let dispatch = useDispatch();
-  let dataBase = useSelector((state) => state);
-
-  // ========== useEffect
-  useEffect(() => {
-    if (startFetch.current) {
-      fetching();
-    }
-  });
+  let result = useSelector((state) => state).apiReducer;
 
   // ========== function
-  const fetching = async () => {
-    let res = await fetch(dataBase.apiReducer);
+  const fetching = async (city) => {
+    let res = await fetch(APIWeather(city, "", "", "current", "en"));
     let data = await res.json();
-    console.log(dataBase.apiReducer, "inside fetching before set render");
-    console.log(data, "inside fetching before set render");
-    setWeatherObject(data);
-    startFetch.current = false;
+    dispatch(APIStructure(data));
   };
-  console.log(weatherObject);
   // ========== function
   const allVideos = [
     { video: clear, name: "clear" },
@@ -59,74 +49,82 @@ const GetWeather = () => {
     { video: tornado, name: "tornado" },
     { video: dust, name: "dust" },
     { video: clouds, name: "clouds" },
+    { video: mist, name: "mist" },
   ];
+  // ==========function
   const settingVideo = () => {
     return (
-      weatherObject &&
+      result &&
       allVideos.filter((videoObj) => {
-        return videoObj.name == weatherObject.weather[0].main.toLowerCase();
+        return videoObj.name == result.weather[0].main.toLowerCase();
       })
     );
   };
+
+  // ==========function
+  const resultDOM = () => {
+    if (!result) {
+      return <h4 className="mb-4">What Cities you would like to travel?</h4>;
+    }
+    if (result) {
+      return result.weather ? (
+        <div className="data p-3 d-flex">
+          <>
+            <div className="left">
+              <h4>
+                {result.name}, {result.sys.country}
+              </h4>
+              <p>Temperature: {(result.main.temp - 273).toFixed(2)} C</p>
+              <p>Sky: {result.weather[0].description}</p>
+              <p>Clouds : {result.clouds.all}%</p>
+              <p>Wind Speed: {result.wind.speed} mph</p>
+              <p>Wind Direction: {result.wind.deg} deg</p>
+              <p>Humidity: {result.main.humidity}%</p>
+              <p>Pressure: {result.main.pressure} mbar</p>
+              <p>visibility : {result.visibility / 1000} Km</p>
+            </div>
+            <video
+              src={settingVideo()[0].video}
+              alt={settingVideo()[0].name}
+              autoPlay
+              loop
+              muted
+            />
+          </>
+        </div>
+      ) : (
+        <h3 className="text-center">Please, Write the city correctly.</h3>
+      );
+    }
+  };
+
   return (
     <div className="weather-section section ">
       <Container>
         <h2 className=" header ">
-          Getting Data <span className="icon-cloud-sun-lightning fw-bold" />
+          City weather <span className="icon-cloud-sun-lightning fw-bold" />
         </h2>
-        <div>
+        <div className="d-flex gap-2 aligen-items-center mb-3">
           <input
             ref={inputDOM}
             type="text"
             className="text-capitalize"
             placeholder="enter a city"
             onChange={(e) => {
-              userInput.current = e.target.value;
+              userCity.current = e.target.value;
             }}
           />
           <Button
             // when the user press the button what will happen? (dispatch => )
             onClick={() => {
-              startFetch.current = true;
-              dispatch(
-                APIStructure([userInput.current, "", "", "current", "en"])
-              );
+              fetching(userCity.current);
               inputDOM.current.value = "";
             }}
           >
             find
           </Button>
         </div>
-        {weatherObject && weatherObject.weather ? (
-          <div className="data p-3 d-flex">
-            <>
-              <div className="left">
-                <h4>
-                  {weatherObject.name}, {weatherObject.sys.country}
-                </h4>
-                <p>
-                  Temperature: {(weatherObject.main.temp - 273).toFixed(2)} C
-                </p>
-                <p>Sky: {weatherObject.weather[0].description}</p>
-                <p>Clouds : {weatherObject.clouds.all}%</p>
-                <p>Wind Speed: {weatherObject.wind.speed} mph</p>
-                <p>Wind Direction: {weatherObject.wind.deg} deg</p>
-                <p>Humidity: {weatherObject.main.humidity}%</p>
-                <p>Pressure: {weatherObject.main.pressure} mbar</p>
-                <p>visibility : {weatherObject.visibility / 1000} Km</p>
-              </div>
-              <video
-                src={settingVideo()[0].video}
-                alt={settingVideo()[0].name}
-                autoPlay
-                loop
-                muted
-              />
-            </>
-          </div>
-        ) : (
-          <h3>Please, Write the city correctly.</h3>
-        )}
+        {resultDOM()} {/*This line has data and display videos*/}
       </Container>
     </div>
   );

@@ -6,3 +6,11 @@ weather App
 3-setting on paper functionality of the app 
 4-User will write his city and then the output will be
 	 [weather-degree(number) , weather-status, city-time, ETC... ]
+
+5- UX of the user are the following [
+	- start button => ok location
+	- start button => ignore => enter city manually
+	- start button => ignore => start button => ok location
+	- start button => ok location => enter city manually => another city => another city => start button => ok location
+	- city entered wrong
+	]

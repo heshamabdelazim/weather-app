@@ -1,0 +1,146 @@
+/* ------------ file content -------------- */
+/* 
+    -footer design
+    -
+    -
+    -
+*/
+
+
+/* ------------ footer design -------------- */
+footer{
+    background-color: var(--color3);
+    }
+
+/* ------------ top-design -------------- */
+footer .top{
+    gap: 50px;
+    display: flex;
+    /* align-items: center; */
+    flex-flow: wrap;
+    justify-content: center;
+}
+footer .top > div{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* ------------ top-hero -------------- */
+
+footer .top .hero .social{
+    font-size: 1.5rem;
+}
+footer .top .hero .social a{
+    color: initial;
+    text-decoration:none ;
+    opacity: 0.7;
+    transition: var(--transition);
+}
+footer .top .hero .social a:hover{
+    opacity: 1;
+    scale: 1.08;
+}
+
+/* ------------ top-thanks -------------- */
+footer .top .thanks li{
+    font-size: 1.1rem;
+}
+footer .top .thanks span{
+    font-weight: 600;
+    color: var(--color5);
+}
+
+footer .top .thanks a{
+    text-decoration: none ;
+    color: var(--color4);
+    font-weight: 700;
+}
+
+/* ------------ top-message -------------- */
+footer .top  .message{
+    flex: 1 40%;
+    align-items: stretch;
+}
+footer .top  .message-form{
+    position:relative;
+    border: 2px solid var(--color4);
+    /* background */
+    background: url(../../videos/leef.png);
+    background-size: 80%;
+    border-radius: 6px;
+}
+footer .top  .message-form label{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    letter-spacing: 1rem;
+    font-weight: 4;
+    transition: var(--transition2);
+}
+footer .top .message-form label.pressed{
+    top: 0;
+    left: 8%;
+    transform: translate(0, -50%);
+    font-size: 1rem;
+    letter-spacing: initial;
+    font-weight: 600;
+    background: var(--color3);
+    padding: 0rem 0.4rem;
+    border-radius: 50%;
+}
+footer .top  .message-form textarea {
+    width: 100%;
+    height: 100%;
+    border: none;
+    color:var(--color2);
+    font-weight: 500;
+    background-color: rgba(255, 255, 255, 0.351);
+    letter-spacing: 0.2rem;
+    padding: 1.2rem 1rem 1rem 1rem ;
+    font-size:clamp(0.5rem, 1.2rem, 1.5rem) ;
+    transition: var(--transition2);
+}
+footer .top  .message-form textarea.pressed{
+    background-color: rgb(255 255 255 / 76%);;
+}
+footer .top  .message-form textarea:focus{
+    outline: none;
+}
+footer .top  .message-form input{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    padding: 0.2rem 1rem;
+    border: none;
+    color: #ffffff8c;
+    font-weight: 500;
+    cursor: not-allowed;
+    background-color: var(--color4);
+    border-radius: 4px;
+    transition: var(--transition);
+}
+footer .top  .message-form input.pressed{
+color: white;
+cursor: pointer;
+}
+
+/* ------------ media -------------- */
+@media (max-width:767px){
+    footer .top{
+        gap: 40px;
+    }
+    footer .top .thanks{
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width:400px){
+    footer .top .thanks li{
+        font-size: 0.85rem;
+    }
+}

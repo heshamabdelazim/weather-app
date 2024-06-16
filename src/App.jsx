@@ -24,9 +24,13 @@ function App() {
       <Header />
       <div className="above position-relative z-3">
         <Content />
-        {showCityWeather && <GetWeather />}
+        {showCityWeather && (
+          <>
+            <GetWeather />
+            <Footer />
+          </>
+        )}
       </div>
-      <Footer />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { Button, Container } from "react-bootstrap";
 import "./content.css";
 
 //photoes
+import sea from "../../videos/weather.png";
 import leef from "../../videos/leef.png";
 import { Link } from "react-router-dom";
 
@@ -16,34 +17,42 @@ import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { APIStructure } from "../../RTK/slices/apiSlice";
 import { cityToggle } from "../../RTK/slices/citySlice";
-import { saveLocation } from "../../RTK/slices/userLocation";
+import { APIWeather } from "../apiStructure";
 
 const Content = () => {
-  //========= hoocks
-  // let [startFetch, setStartFetch] = useState(false);
-  let startFetch = useRef(true);
   //========= redux hoocks
   const dispatch = useDispatch();
-  const myAPI = useSelector((state) => state).apiReducer;
+  const myDB = useSelector((state) => state);
+  const myAPI = myDB.apiReducer;
+  console.log("myDB", myDB);
 
-  //========== useEffect()
-  useEffect(() => {
-    if (startFetch.current) {
-      fetching();
-    }
-  });
-  //========= function
-  async function fetching() {
-    const res = await fetch(myAPI);
-    const data = await res.json();
-    // getting the location and save it in Redux
+  ////========= Function
+  function pressed() {
+    !myDB.showCity && dispatch(cityToggle(true));
     Swal.fire({
-      title: `Your city is : ${data.name}`,
-      icon: "info",
+      html: `
+        <h2><strong>Location Access</strong></h2>
+        <h4>Know your city weather?</h4>
+      `,
+      icon: "question",
+      // customization
+      width: "350",
+      background: ` url(${sea})`,
+      color: "#000000",
+      backdrop: `
+        rgb(238 238 238 / 10%)  
+      `,
+      showConfirmButton: true,
+      showCancelButton: true,
+      cancelButtonText: "Ignore",
+      // intput
+      input: "checkbox",
+      inputPlaceholder: "allow gettign location",
+      inputValue: 1, //this make the input checked
+      inputValidator: (value) => {
+        return value ? gettingLocation() : "Press Ignore";
+      },
     });
-    // then open the weather section
-    dispatch(cityToggle(true));
-    startFetch.current = false;
   }
 
   //========= function
@@ -54,7 +63,7 @@ const Content = () => {
       (position) => {
         const lat = position.coords.latitude;
         const long = position.coords.longitude;
-        dispatch(APIStructure(["", lat, long, "current", "en"]));
+        fetching(lat, long);
       },
       (error) => {
         Swal.fire({
@@ -66,24 +75,19 @@ const Content = () => {
       }
     );
   }
-  ////========= Function SWAL
-  function pressed() {
+  //========= function
+  async function fetching(lat, long) {
+    console.log("fetching start");
+    const res = await fetch(APIWeather("", lat, long, "current", "en"));
+    const data = await res.json();
+    dispatch(APIStructure(data));
     Swal.fire({
-      title: "Locatoin Access",
-      text: "Know your city weather?",
-      icon: "question",
-      showConfirmButton: true,
-      showCancelButton: true,
-      cancelButtonText: "Ignore",
-      // intput
-      input: "checkbox",
-      inputPlaceholder: "allow gettign location",
-      inputValue: 1, //this make the input checked
-      inputValidator: (value) => {
-        return value ? gettingLocation() : "press ignore";
-      },
+      title: `Your city is : ${data.name}`,
+      icon: "info",
     });
+    // then open the weather section
   }
+
   const allServ = [
     "temperature",
     "sky",
