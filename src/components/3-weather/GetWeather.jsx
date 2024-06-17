@@ -30,14 +30,17 @@ const GetWeather = () => {
   // ========== Redux hocks
   let dispatch = useDispatch();
   let result = useSelector((state) => state).apiReducer;
-
   // ========== function
-  const fetching = async (city) => {
-    let res = await fetch(APIWeather(city, "", "", "current", "en"));
+  const fetching = async () => {
+    let res = await fetch(
+      APIWeather(userCity.current, "", "", "current", "en")
+    );
     let data = await res.json();
     dispatch(APIStructure(data));
   };
   // ========== function
+  // const allVideos = [{},{},{}]
+
   const allVideos = [
     { video: clear, name: "clear" },
     { video: rain, name: "rain" },
@@ -67,34 +70,49 @@ const GetWeather = () => {
       return <h4 className="mb-4">What Cities you would like to travel?</h4>;
     }
     if (result) {
-      return result.weather ? (
-        <div className="data p-3 d-flex">
-          <>
-            <div className="left">
-              <h4>
-                {result.name}, {result.sys.country}
-              </h4>
-              <p>Temperature: {(result.main.temp - 273).toFixed(2)} C</p>
-              <p>Sky: {result.weather[0].description}</p>
-              <p>Clouds : {result.clouds.all}%</p>
-              <p>Wind Speed: {result.wind.speed} mph</p>
-              <p>Wind Direction: {result.wind.deg} deg</p>
-              <p>Humidity: {result.main.humidity}%</p>
-              <p>Pressure: {result.main.pressure} mbar</p>
-              <p>visibility : {result.visibility / 1000} Km</p>
-            </div>
-            <video
-              src={settingVideo()[0].video}
-              alt={settingVideo()[0].name}
-              autoPlay
-              loop
-              muted
-            />
-          </>
-        </div>
-      ) : (
-        <h3 className="text-center">Please, Write the city correctly.</h3>
-      );
+      if (result.weather) {
+        // destructuring
+        const {
+          clouds: { all: A },
+          main: { temp: T, pressure: P, humidity: H },
+          wind: { speed: S, deg },
+          visibility: V,
+          sys: { country: C },
+          name: N,
+          weather: [{ description: D }],
+        } = result;
+
+        return (
+          <div className="data p-3 d-flex">
+            <>
+              <div className="left">
+                <h4>
+                  {N}, {C}
+                </h4>
+                <p>Temperature: {(T - 273).toFixed(2)} C</p>
+                <p>Sky: {D}</p>
+                <p>Clouds : {A}%</p>
+                <p>Wind Speed: {S} mph</p>
+                <p>Wind Direction: {deg} deg</p>
+                <p>Humidity: {H}%</p>
+                <p>Pressure: {P} mbar</p>
+                <p>visibility : {V / 1000} Km</p>
+              </div>
+              <video
+                src={settingVideo()[0].video}
+                alt={settingVideo()[0].name}
+                autoPlay
+                loop
+                muted
+              />
+            </>
+          </div>
+        );
+      } else {
+        return (
+          <h3 className="text-center">Please, Write the city correctly.</h3>
+        );
+      }
     }
   };
 
@@ -108,7 +126,7 @@ const GetWeather = () => {
           <input
             ref={inputDOM}
             type="text"
-            className="text-capitalize"
+            className="text-capitalize px-3"
             placeholder="enter a city"
             onChange={(e) => {
               userCity.current = e.target.value;
@@ -117,7 +135,7 @@ const GetWeather = () => {
           <Button
             // when the user press the button what will happen? (dispatch => )
             onClick={() => {
-              fetching(userCity.current);
+              fetching();
               inputDOM.current.value = "";
             }}
           >

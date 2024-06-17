@@ -10,7 +10,6 @@ const Footer = () => {
   let labelDom = useRef();
   let textareaDom = useRef();
   let submitDom = useRef();
-  console.log("Footer rendered");
   //============== social of the contacts
   const allSocial = [
     {

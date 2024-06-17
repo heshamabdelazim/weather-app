@@ -24,7 +24,6 @@ const Content = () => {
   const dispatch = useDispatch();
   const myDB = useSelector((state) => state);
   const myAPI = myDB.apiReducer;
-  console.log("myDB", myDB);
 
   ////========= Function
   function pressed() {
@@ -59,6 +58,8 @@ const Content = () => {
   function gettingLocation() {
     // This function will work after the user allow access to his location.
     // So this function will get the location of the user and save it in Redux / after that start fetching
+    // navigator.geolocation.getCurrentPosition(function(), function())
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const lat = position.coords.latitude;
