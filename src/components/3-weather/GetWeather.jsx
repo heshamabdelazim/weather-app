@@ -8,18 +8,18 @@ import { Button, Container } from "react-bootstrap";
 import { APIStructure } from "../../RTK/slices/apiSlice";
 
 // videos
-import clear from "../../videos/clear-sky.mp4";
-import rain from "../../videos/sleet.mp4";
-import sand from "../../videos/sand.mp4";
-import snow from "../../videos/snow.mp4";
-import drizzle from "../../videos/drizzle.mp4";
-import fog from "../../videos/fog.mp4";
-import thunderstorm from "../../videos/thunderstorm.mp4";
-import tornado from "../../videos/tornado.mp4";
-import dust from "../../videos/dust.mp4";
-import clouds from "../../videos/clouds.mp4";
-import mist from "../../videos/mist.mp4";
-import { APIWeather } from "../apiStructure";
+import clear from "../../../public/videos/Clear-Sky.mp4";
+import rain from "../../../public/videos/Sleet.mp4";
+import sand from "../../../public/videos/Sand.mp4";
+import snow from "../../../public/videos/Snow.mp4";
+import drizzle from "../../../public/videos/Drizzle.mp4";
+import fog from "../../../public/videos/Fog.mp4";
+import thunderstorm from "../../../public/videos/Thunderstorm.mp4";
+import tornado from "../../../public/videos/Tornado.mp4";
+import dust from "../../../public/videos/Dust.mp4";
+import clouds from "../../../public/videos/Clouds.mp4";
+import mist from "../../../public/videos/Mist.mp4";
+import { generateAPI_byCity } from "../apiStructure";
 
 const GetWeather = () => {
   // ========== hoocks
@@ -29,11 +29,11 @@ const GetWeather = () => {
 
   // ========== Redux hocks
   let dispatch = useDispatch();
-  let result = useSelector((state) => state).apiReducer;
+  let result = useSelector((state) => state).apiResponse;
   // ========== function
   const fetching = async () => {
     let res = await fetch(
-      APIWeather(userCity.current, "", "", "current", "en")
+      generateAPI_byCity(userCity.current, "current", "en")
     );
     let data = await res.json();
     dispatch(APIStructure(data));

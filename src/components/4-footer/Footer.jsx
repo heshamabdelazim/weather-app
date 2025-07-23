@@ -1,15 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import "./Footer.css";
-import { useDispatch, useSelector } from "react-redux";
-import { Button, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import {} from "../../RTK/slices/citySlice";
 import { APIStructure } from "../../RTK/slices/apiSlice";
-import Swal from "sweetalert2";
 
 const Footer = () => {
-  let labelDom = useRef();
-  let textareaDom = useRef();
-  let submitDom = useRef();
+  let [isFocused, setIsFocused] = useState(false);
+
   //============== social of the contacts
   const allSocial = [
     {
@@ -21,11 +18,6 @@ const Footer = () => {
       herf: "https://wa.me/+201212005626",
       iconClass: "icon-whatsapp",
       title: "Hesham's Whatsapp",
-    },
-    {
-      herf: "https://www.facebook.com/hesham.abdelazim.94",
-      iconClass: "icon-facebook2",
-      title: "Hesham's FaceBook",
     },
     {
       herf: "https://github.com/heshamabdelazim",
@@ -77,27 +69,22 @@ const Footer = () => {
   });
 
   // ============= function
-  function focusing() {
-    textareaDom.current.classList.add("pressed");
-    labelDom.current.classList.add("pressed");
-    submitDom.current.classList.add("pressed");
-  }
 
   // ============= function
-  function bluring() {
-    if (textareaDom.current.value.length == 0) {
-      labelDom.current.classList.remove("pressed");
-      textareaDom.current.classList.remove("pressed");
-      submitDom.current.classList.remove("pressed");
+  function bluring(e) {
+    if (e.target.value.length == 0) {
+      setIsFocused(false);
     }
+    // setIsFocused(false);
   }
 
+  const classPress = isFocused ? "pressed" : "";
   return (
     <footer className="footer section  ">
       <Container>
         <div className="top ">
           <div className="hero  ">
-            <h5 className="m-0">Developed by :</h5>
+            <h5 className="m-0">Developed by:</h5>
             <h4 className="m-0">Hesham Abdelazim Kamel</h4>
             <div className="social d-flex gap-4">{puttingSocial}</div>
           </div>
@@ -105,20 +92,20 @@ const Footer = () => {
             <h5 className="m-0">Thanks to:</h5>
             <ul>{puttingLis}</ul>
           </div>
-          <div className="message  ">
+          <div className={"message " + classPress}>
             <div className="message-form">
-              <label htmlFor="message" ref={labelDom}>
+              <label htmlFor="message" className={classPress}>
                 Message?
               </label>
               <textarea
-                ref={textareaDom}
                 style={{ resize: "none" }}
                 name="message"
                 id="message"
-                onFocus={() => focusing()}
-                onBlur={() => bluring()}
+                className={classPress}
+                onFocus={() => setIsFocused(true)}
+                onBlur={(e) => bluring(e)}
               />
-              <input type="submit" ref={submitDom} />
+              <input type="submit" className={" " + classPress} />
             </div>
           </div>
         </div>

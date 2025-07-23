@@ -1,4 +1,3 @@
-import React, { useEffect, useRef, useState } from "react";
 // bootstrap
 import { Button, Container } from "react-bootstrap";
 
@@ -6,9 +5,8 @@ import { Button, Container } from "react-bootstrap";
 import "./content.css";
 
 //photoes
-import sea from "../../videos/weather.png";
-import leef from "../../videos/leef.png";
-import { Link } from "react-router-dom";
+import weather from "../../../public/weather.png";
+import leef from "../../../public/leef.png";
 
 //sweatAlert
 import Swal from "sweetalert2";
@@ -17,17 +15,16 @@ import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { APIStructure } from "../../RTK/slices/apiSlice";
 import { cityToggle } from "../../RTK/slices/citySlice";
-import { APIWeather } from "../apiStructure";
+import { generateAPI_byLatLong } from "../apiStructure";
 
 const Content = () => {
   //========= redux hoocks
   const dispatch = useDispatch();
-  const myDB = useSelector((state) => state);
-  const myAPI = myDB.apiReducer;
+  const showCity = useSelector((state) => state.showCity);
 
   ////========= Function
   function pressed() {
-    !myDB.showCity && dispatch(cityToggle(true));
+    !showCity && dispatch(cityToggle(true));
     Swal.fire({
       html: `
         <h2><strong>Location Access</strong></h2>
@@ -36,7 +33,7 @@ const Content = () => {
       icon: "question",
       // customization
       width: "350",
-      background: ` url(${sea})`,
+      background: ` url(${weather})`,
       color: "#000000",
       backdrop: `
         rgb(238 238 238 / 10%)  
@@ -79,8 +76,11 @@ const Content = () => {
   //========= function
   async function fetching(lat, long) {
     console.log("fetching start");
-    const res = await fetch(APIWeather("", lat, long, "current", "en"));
+    const res = await fetch(generateAPI_byLatLong(lat, long, "current", "en"));
     const data = await res.json();
+    console.log(data);
+    console.log(generateAPI_byLatLong(lat, long, "current", "en"));
+
     dispatch(APIStructure(data));
     Swal.fire({
       title: `Your city is : ${data.name}`,

@@ -67,7 +67,7 @@ footer .top  .message-form{
     position:relative;
     border: 2px solid var(--color4);
     /* background */
-    background: url(../../videos/leef.png);
+    background: url(../../../public/leef.png);
     background-size: 80%;
     border-radius: 6px;
 }

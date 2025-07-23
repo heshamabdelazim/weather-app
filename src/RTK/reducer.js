@@ -4,7 +4,7 @@ import city from "./slices/citySlice";
 
 const myStore = configureStore({
   reducer: {
-    apiReducer: APIWeather,
+    apiResponse: APIWeather,
     showCity: city,
   },
 });

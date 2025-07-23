@@ -6,6 +6,7 @@ import "./index.css";
 // bootstrap
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
+// redux
 import { Provider } from "react-redux";
 import myStore from "./RTK/reducer.js";
 

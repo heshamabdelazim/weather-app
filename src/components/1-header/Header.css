@@ -19,7 +19,7 @@ header{
     justify-content: center;
     animation: bg-height 4s forwards  ;
     /* background */
-    background:url(../../videos//weather.png) ;
+    background:url(../../../public/weather.png) ;
     background-repeat: no-repeat;
     background-size:cover;
     background-position: 0 -130px;

@@ -14,3 +14,38 @@ weather App
 	- start button => ok location => enter city manually => another city => another city => start button => ok location
 	- city entered wrong
 	]
+
+
+
+=======================================================
+Weather App.
+
+
+
+- Respecting UI&UX
+
+
+
+- Redux Toolkit
+
+
+
+- REST API
+
+
+
+- Responsive for medium and small screens
+
+
+
+- Clean organized code
+
+
+
+Project link: https://weather-app-hesham.netlify.app/
+
+
+
+GitHub Link: https://github.com/heshamabdelazim/weather-app
+
+

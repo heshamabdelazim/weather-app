@@ -3,7 +3,7 @@ import React from "react";
 import "./Header.css";
 
 // images
-import clouds2 from "../../videos/clouds2.png";
+import clouds2 from "../../../public/clouds2.png";
 
 const Header = () => {
   return (
